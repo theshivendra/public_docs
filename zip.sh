@@ -1,15 +1,12 @@
 echo "Hi this is Shiv"
 #!/bin/bash
 
-ZIP_URL="$1"
-ZIP_NAME="$2"
-TARGET_DIR="$3"
+echo "Hi this is Shiv"
 
-# Check for required arguments
-if [ -z "$ZIP_URL" ] || [ -z "$ZIP_NAME" ] || [ -z "$TARGET_DIR" ]; then
-  echo "Usage: $0 <zip_url> <output_zip_name> <target_directory>"
-  exit 1
-fi
+# Default values
+ZIP_URL="${1:-https://github.com/theshivendra/public_docs/archive/refs/heads/main.zip}"
+ZIP_NAME="${2:-public_docs.zip}"
+TARGET_DIR="."  # Always use current directory
 
 # Function to check and install a package if missing
 install_if_missing() {
@@ -32,7 +29,7 @@ install_if_missing zip
 DOWNLOADS_ZIP="$HOME/Downloads/script_package.zip"
 if [ -f "$DOWNLOADS_ZIP" ]; then
   echo "Found 'script_package.zip' in ~/Downloads. Unzipping it here..."
-  unzip -o "$DOWNLOADS_ZIP" -d .
+  unzip -o "$DOWNLOADS_ZIP" -d "$TARGET_DIR"
 else
   echo "'script_package.zip' not found in ~/Downloads. Skipping unzip."
 fi
@@ -45,11 +42,10 @@ else
   wget -O "$ZIP_NAME" "$ZIP_URL"
 fi
 
-# Create the target directory if it doesn't exist
-mkdir -p "$TARGET_DIR"
-
-# Unzip downloaded ZIP into the target directory
-echo "Unzipping '$ZIP_NAME' to '$TARGET_DIR'..."
+# Unzip downloaded ZIP into current directory
+echo "Unzipping '$ZIP_NAME' into current directory..."
 unzip -o "$ZIP_NAME" -d "$TARGET_DIR"
 
 echo "✅ Done: All steps completed successfully."
+
+
