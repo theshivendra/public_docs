@@ -1,5 +1,7 @@
-echo "Hi this is Shiv"
 #!/bin/bash
+
+echo "Hi this is Shiv"
+
 
 echo "Hi this is Shiv"
 
