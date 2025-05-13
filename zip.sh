@@ -2,13 +2,8 @@
 
 echo "Hi this is Shiv"
 
-
-echo "Hi this is Shiv"
-
-# Default values
-ZIP_URL="${1:-https://github.com/theshivendra/public_docs/archive/refs/heads/main.zip}"
-ZIP_NAME="${2:-public_docs.zip}"
-TARGET_DIR="."  # Always use current directory
+# Always use current directory for extraction
+TARGET_DIR="."
 
 # Function to check and install a package if missing
 install_if_missing() {
@@ -27,27 +22,14 @@ install_if_missing curl
 install_if_missing unzip
 install_if_missing zip
 
-# Check and unzip script_package.zip from ~/Downloads to current directory
+# Path to zip file
 DOWNLOADS_ZIP="$HOME/Downloads/script_package.zip"
+
+# Unzip script_package.zip from ~/Downloads to current directory
 if [ -f "$DOWNLOADS_ZIP" ]; then
   echo "Found 'script_package.zip' in ~/Downloads. Unzipping it here..."
   unzip -o "$DOWNLOADS_ZIP" -d "$TARGET_DIR"
+  echo "✅ Unzipped 'script_package.zip' successfully to current directory."
 else
-  echo "'script_package.zip' not found in ~/Downloads. Skipping unzip."
+  echo "⚠️ 'script_package.zip' not found in ~/Downloads. Nothing to extract."
 fi
-
-# Download ZIP file if not already present
-if [ -f "$ZIP_NAME" ]; then
-  echo "ZIP file '$ZIP_NAME' already exists. Skipping download."
-else
-  echo "Downloading ZIP file from $ZIP_URL..."
-  wget -O "$ZIP_NAME" "$ZIP_URL"
-fi
-
-# Unzip downloaded ZIP into current directory
-echo "Unzipping '$ZIP_NAME' into current directory..."
-unzip -o "$ZIP_NAME" -d "$TARGET_DIR"
-
-echo "✅ Done: All steps completed successfully."
-
-
